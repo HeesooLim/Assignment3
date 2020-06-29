@@ -53,11 +53,12 @@
     <main>
         <div class="container">
                 <h1 class="display-4">Contact</h1>
+                <div id="errorMessage" class="alert alert-danger" role="alert" hidden></div>
                 <hr>
-                <form>
+                <form id="contactForm">
                   <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" aria-describedby="firstName" placeholder="Enter your first name" required>
+                    <input type="text" class="form-control" id="firstName" name="firstName" aria-describedby="firstName" placeholder="Enter your first name" required autofocus>
                   </div>
                   <div class="form-group">
                     <label for="lastName">Last Name</label>
@@ -77,8 +78,8 @@
                     <label for="shortMessage">Your Message</label>
                     <textarea class="form-control" id="shortMessage" rows="3" name="shortMessage" aria-describedby="shortMessage" ></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-envelope-square"></i> Send</button>
-                  <button type="reset" class="btn btn-warning btn-lg"><i class="fas fa-comment-slash"></i> Reset</button>
+                  <button id="submitButton" type="submit" class="btn btn-primary btn-lg"><i class="fas fa-envelope-square"></i> Send</button>
+                  <button id="resetButton" type="reset" class="btn btn-warning btn-lg"><i class="fas fa-comment-slash"></i> Reset</button>
                 </form>
         </div>
     </main>
