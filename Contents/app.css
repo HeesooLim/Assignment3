@@ -38,7 +38,7 @@ footer nav{
 
 /* Background */
 #bioBackground {
-    background-image: url("/Assets/bkground.jpg");
+    background-image: url("./Assets/bkground.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -134,7 +134,7 @@ h1 {
 /* --- Contactpage --- */
 
 #contactBackground {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Assets/contact.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./Assets/contact.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -159,7 +159,7 @@ h1 {
 /* --- Projectpage --- */
 
 #projectBackground {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Assets/background2.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./Assets/background2.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;

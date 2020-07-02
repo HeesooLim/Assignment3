@@ -300,7 +300,7 @@ function check()
     // if all inputs from user are correct, it will load index page
     if(successNumber === 4)
     {
-        window.location.href = "../index.html"
+        window.location.href = "https://heesoolim.github.io/Assignment2/index.html";
     }
 
     /* when user input is not correct */
