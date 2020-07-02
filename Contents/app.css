@@ -1,4 +1,318 @@
-/* custom CSS goes here */
-body{
+
+/*
+    Author: Heesoo Lim
+    Date: July 02, 2020
+    File Name: app.css
+    File Description: This is a css file that is applied to index.html, contact.html and project.html
+*/
+
+nav {
+    background-color: rgb(0, 0, 0);
+}
+
+/* padding of each navigation var item */
+.nav-item {
+    padding-right: 10px;
+}
+
+main {
+    padding: 10px;
+}
+
+/* general horizontal line */
+hr {
+    width: 700px;
+    border-width: 1px;
+    border-color: rgb(255, 239, 235);
+}
+
+/* webpage's footer */
+footer nav{
+    padding: 10px;
+    margin-top: 50px;
+    background-color: rgb(0, 0, 0);
+    color: gray;
+}
+
+/* --- Biopage --- */
+
+/* Background */
+#bioBackground {
+    background-image: url("/Assets/bkground.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+/* Bio page's profile container*/
+.bioContainer {
+    border-style: solid;
+    border-color: rgb(165, 165, 167);
+    border-width: 1px;
+    box-shadow: 2px 2px 4px rgb(94, 94, 94);
+    background-color: rgba(112, 123, 131, 0.9);
+    width: 980px;
+    text-align: center;
+    margin: 200px auto 0px auto;
+    padding: 0px 50px 0px 50px;
+}
+
+/* Bio page's profile picture hover text */
+.overlay h2 {
+    text-align: center;
+    font-family: serif;
+    color: rgb(44, 50, 80);      
+    font-weight: lighter;
+    font-size: 25px;   
+}
+
+
+/*  Bio page's profile picture hover text (Welcome,) */
+.overlay h2:first-of-type{    
+    font-weight: bold;
+    margin-top: 40%;
+}
+
+/* Bio page's profile picture container */
+.profileImage {
+    position: relative;    
+    width: 300px;
+    height: 300px;
+    margin: 75px auto 0px auto;
+    border-radius: 50% 50%;
+    background-color: white;
+    padding: 10px;
     
+}
+
+/* Bio page's profile picture */
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50% 50%;
+}
+  
+/* Bio page's profile picture hover effect */
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #ffffff;
+    border-radius: 50% 50%;
+    margin: 0px auto 0px auto;
+}
+.profileImage:hover .overlay {
+    opacity: 0.9;
+}
+
+/* Bio page's text */
+.missionStatement p:nth-of-type(1) {
+    font-style: italic;
+}
+.missionStatement p:nth-of-type(2) {
+    font-size: 20px;    
+}
+.missionStatement p:nth-of-type(3) {
+    margin-bottom: 50px;    
+}
+
+/* Contact page and Project page's title text*/
+h1 {
+    font-weight: lighter;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* --- Contactpage --- */
+
+#contactBackground {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Assets/contact.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Contact page's container*/
+/**/
+.formContainer {    
+    background-color: rgba(53, 53, 53, 0.7);
+    width: 900px;
+    margin-top: 200px;
+}
+
+#formWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+
+/* --- Projectpage --- */
+
+#projectBackground {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/Assets/background2.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Project page's container*/
+.projectContainer {
+    width: 980px;
+    text-align: center;
+    margin: 100px auto 0px auto;
+    padding: 0px 50px 0px 50px;
+}
+
+
+/* Project page's images*/
+article img {
+    width: 250px;
+    height: 310px;
+    background-color: rgb(243, 243, 243);
+    box-shadow: 2px 2px 4px rgb(53, 53, 53);
+    padding: 10px 10px 70px 10px;
+    margin: 20px 20px 50px 20px;
+}
+/* tilt Project page's images */
+article img:nth-of-type(odd){
+    transform: rotate(-3deg);
+}
+article img:nth-of-type(even){
+    transform: rotate(3deg);
+}
+
+/* Project page's subtitle */
+header p {
+    font-family: arial;
+    font-size: 30px;
+    padding-top: 40px;
+    color: rgb(92, 93, 131);
+}
+
+/* Project page's short horizontal line */
+article hr {
+    width: 400px;
+    border-width: 1px;
+}
+
+/* Project page's text */
+article p {
+    width: 500px;
+    margin: 0px auto 0px auto;
+    color: white;
+}
+
+/* Project page's container of each subtitle */
+article {
+    margin: 0px 50px 0px 50px;
+    padding-bottom: 20px;
+}
+
+/* form */
+form {
+    width: 900px;
+    padding: 40px 200px 0 200px;
+}
+
+/* label in form tag */
+.form-control label {
+    display: inline-block;
+    color: white;
+    margin-left: 5px;
+}
+
+/* form's input and textarea */
+.form-control input, .form-control textarea {
+    display: block;
+    padding: 10px;
+    width: 300px;
+    border-radius: 4px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    width: 100%;
+}
+
+/* hide each form's error message before error occurs */
+.form-control small {
+    position: absolute;
+    color: lightsalmon;
+    left: 20px;
+    visibility: hidden;
+}
+
+/* show error message when it occurs */
+.form-control.fail small {
+    visibility: visible;
+}
+
+/* hide form's error or success icon before they occur and adjust its position */
+.form-control i {
+    position: absolute;
+    right: 25px;
+    top: 55px;
+    visibility: hidden;
+}
+
+/* change the border color depending on result (success or fail) */
+.form-control.success input {
+    border-color: rgb(40, 131, 40);
+}
+.form-control.fail input {
+    border-color:rgb(131, 40, 40);
+}
+
+/* show the icon depending on the result */
+.form-control.success i.fa-check-circle  {
+    color: rgb(40, 131, 40);
+    visibility: visible;
+}
+.form-control.fail i.fa-times-circle {
+    color: rgb(131, 40, 40);
+    visibility: visible;
+}
+
+/* each element of the form including label, input and small tag */
+.form-control {
+    margin-bottom: 15px;
+    position: relative;
+    height: 100%;
+    background-color: rgba(151, 151, 151, 0);
+    border-style: none;
+}
+
+/* buttons of the form */
+form button {
+    width: 48%;
+    padding: 10px;
+    display: inline-block;
+    background-color: rgb(170, 170, 170);
+    border-style: none;
+    border-radius: 4px;
+    box-shadow: 3px 3px 4px rgb(44, 44, 44);
+    font-size: 17px;
+}
+
+/* submit button */
+form button:first-of-type {
+    margin-right: 14px;
+}
+
+nav:last-of-type a {
+    text-decoration: none;
+    color: rgb(133, 133, 214);
+}
+nav:last-of-type a:hover {
+    text-decoration: underline;
+    color: rgb(192, 192, 201);
 }

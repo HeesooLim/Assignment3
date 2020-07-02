@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+      Author: Heesoo Lim
+      Date: July 02, 2020
+      Website Name: Bio page
+      File Name: index.html
+      File Description: This is the home page of assignment 2 (Bio page)
+   -->
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
@@ -10,14 +18,13 @@
     <link rel="stylesheet" href="./Contents/app.css">
 </head>
 <body>
-
-    <!-- Main Navigation -->
+  <div id="bioBackground">
+    <!-- Main Navigation bar -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
 
             <a class="navbar-brand" href="index.html">
-              <!--Put image in src to put logo in navbar-->
-              <img src="./" width="30" height="30" alt="" loading="lazy">
+              <img src="/Assets/logo.png" width="30" height="30" alt="" loading="lazy">
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,48 +32,45 @@
             </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html"><i class="fas fa-home fa-lg"></i> Home</a>
+                  <a class="nav-link" href="index.html"><i class="fas fa-house-user fa-lg"></i> Bio</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="products.html"><i class="fas fa-map fa-lg"></i> Products</a>
+                  <a class="nav-link" href="project.html"><i class="fas fa-briefcase fa-lg"></i> Project</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="service.html"><i class="fas fa-border-all fa-lg"></i> Services</a>
-                </li>
-                
-                <li class="nav-item">
-                <a class="nav-link" href="about.html"><i class="fas fa-info fa-lg"></i> About Us</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link" href="contact.html"><i class="fas fa-phone fa-lg"></i> Contact Us</a>
+                <a class="nav-link" href="contact.html"><i class="fas fa-phone-square fa-lg"></i> Contact</a>
                 </li>
               </ul>
+
             </div>
           </nav>
     </header>
-
+    <!-- Main contents -->
     <main>
-        <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-4">Welcome</h1>
-        
-              </div>
+      <div class="bioContainer">
+      <div class="profileImage">
+        <img src="/Assets/Heesoo1.jpg" alt="Heesoo Lim's profile picture" class="image">
+        <div class="overlay">
         </div>
+      </div>
+      
+      <hr style="margin-top: 50px; margin-bottom: 50px;">
+
+      <div class="missionStatement"></div>
+      
+      <hr>
+    </div>
     </main>
     
+    <!-- Footer Navigation -->
     <footer>
-        <nav class="navbar fixed-bottom navbar-light" style="background-color: lightgray;">
-            <h4>&copy; CopyRight 2020. All Rights Reserved.</h4>
-        </nav>
+      <nav class="navbar bottom navbar-light"></nav>
     </footer>
-
-
-    <!-- JavaScript Section -->
 
     <!-- 3rd Party JavaScript Libraries -->
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
