@@ -223,6 +223,8 @@ function addTextsToContact()
     }
     }
 
+/* I have referenced the formation of the code from here https://www.youtube.com/watch?v=rsd4FNGTRBw and modified it when I write under code */
+
 // get elements within the form
 let form = document.getElementById('form');
 let firstName = document.getElementById('firstName');

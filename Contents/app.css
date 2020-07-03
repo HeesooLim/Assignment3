@@ -224,6 +224,9 @@ form {
     padding: 40px 200px 0 200px;
 }
 
+
+/* I have referenced the formation of the code from here https://www.youtube.com/watch?v=rsd4FNGTRBw and modified it when I write under code */
+
 /* label in form tag */
 .form-control label {
     display: inline-block;
