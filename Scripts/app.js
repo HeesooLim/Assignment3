@@ -22,7 +22,7 @@ window.addEventListener("load", Start);
 
 let title = document.title;
 
-/* highlight actived link */
+/* highlight activated link */
 function highlightActiveLink() 
     {
         let title = document.title;
