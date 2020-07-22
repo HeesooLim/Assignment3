@@ -2,7 +2,7 @@
 
 /*
     Author: Heesoo Lim
-    Date: July 02, 2020
+    Date: July 21, 2020
     File Name: app.js
     File Description: This is a JavaScript file that is applied to index.html, contact.html and project.html
 */
@@ -10,43 +10,116 @@
 /* starting function containing all functions */
 function Start()
 {
-        highlightActiveLink();
-        addHeading2HoverTextInBio();
-        addParagraphsInBio();
-        addTextsInProject();
-        addTextsToContact();
-        addTextsToFooter();
+    let title = document.title;
+    let navAnchors = document.querySelectorAll("li a");
+
+    switch (title) {
+        case 'Home':
+            injectParagraphsOverlay();
+            injectParagraphsBIOP();
+            navAnchors[0].className = "nav-link active";
+            break;
+        case 'Project':
+            injectParagraphsProject();
+            navAnchors[1].className = "nav-link active";
+            break;
+        case 'Contact':
+            injectParagraphsContact();
+            navAnchors[2].className = "nav-link active";
+            // get elements within the form
+            let form = document.getElementById('form');
+            form.addEventListener('submit', (event) =>
+            {
+                // prevent users from clicking submit button without typing anything
+                event.preventDefault();
+                check();
+            });
+            break;
+        default:
+            break;
+    }
+    
+    addTextsToFooter();
 } 
 
 window.addEventListener("load", Start);
 
-let title = document.title;
+function injectParagraphsOverlay()
+{
+    
+    let XHR = new XMLHttpRequest();
+    XHR.open('GET', './Scripts/paragraphs.json');
+    XHR.send();
 
-/* highlight activated link */
-function highlightActiveLink() 
+    console.log(XHR.readyState);
+
+    XHR.addEventListener("readystatechange", function()
     {
-        let title = document.title;
-
-        title = title.toLowerCase();
-
-        // select all anchor tags in navigation bar
-        let navAnchors = document.querySelectorAll("li a");
-
-        let activeAnchor = "nav-link active";
-
-        for (const anchor of navAnchors) 
+        if(XHR.readyState === 4 && XHR.status === 200)
         {
-            let href = anchor.getAttribute("href");
-
-            // remove .html from href
-            let hrefName = href.substr(0, href.length - 5);
-
-            // if the title and href match, make the anchor active
-            if (hrefName === title || title === "home" && hrefName === "index") 
+            let overlay = document.querySelectorAll('.overlay h2');
+            let data = JSON.parse(XHR.responseText);
+            let contentData = data.BIO;
+            for (let index = 0; index < overlay.length; index++) 
             {
-                anchor.className = activeAnchor;    
-            }
+                overlay[index].innerText = contentData.hoverTexts[index];
+            }          
         }
+    })
+}
+
+function injectParagraphsBIOP()
+{
+    
+    let XHR = new XMLHttpRequest();
+    XHR.open('GET', './Scripts/paragraphs.json');
+    XHR.send();
+
+    console.log(XHR.readyState);
+
+    XHR.addEventListener("readystatechange", function()
+    {
+        if(XHR.readyState === 4 && XHR.status === 200)
+        {
+            let missionStatement = document.querySelectorAll('.missionStatement p');
+            let data = JSON.parse(XHR.responseText);
+            let contentData = data.BIO;
+            for (let index = 0; index < missionStatement.length; index++) 
+            {
+                missionStatement[index].innerText = contentData.Ps[index];
+            }          
+        }
+    })
+}
+
+function injectParagraphsProject()
+{
+    
+    let XHR = new XMLHttpRequest();
+    XHR.open('GET', './Scripts/paragraphs.json');
+    XHR.send();
+
+    console.log(XHR.readyState);
+
+    XHR.addEventListener("readystatechange", function()
+    {
+        if(XHR.readyState === 4 && XHR.status === 200)
+        {
+            let articleTopic = document.querySelectorAll("article h3");
+            let projectHeading = document.querySelector("section h1");
+            let articleParagraphs = document.querySelectorAll("article p");
+            
+            let data = JSON.parse(XHR.responseText);
+            let contentData = data.Projects;
+            projectHeading.innerText = contentData.topic;
+
+            for (let index = 0; index < articleTopic.length; index++) 
+            {
+                articleTopic[index].innerText = contentData.subtitles[index];
+                articleParagraphs[index].innerText = contentData.paragraphs[index];
+            }          
+        }
+    })
 }
 
 /* add texts in footer */
@@ -61,204 +134,65 @@ function addTextsToFooter()
     `;
 }
 
-/* add h2 texts in Biopage */
-function addHeading2HoverTextInBio() 
-{
-    if(title === "Home")
-    {
-        // get an element
-        let overlayText = document.getElementsByClassName("overlay")[0];
-            
-        if (overlayText) 
-        {
-            // create h2 element
-            let firstH2 = document.createElement("h2");
-
-            // insert texts into h2 element
-            firstH2.textContent = `Welcome,`;
-                
-            // add h2 element in div element
-            overlayText.appendChild(firstH2);
-
-            let secondH2 = document.createElement("h2");
-            secondH2.textContent = `I am Heesoo`;
-            overlayText.appendChild(secondH2);
-        }
-    }
-        
-}
-
-/* add mission state <p> in Bio page */
-function addParagraphsInBio() 
-{
-    if(title === "Home")
-    {
-        // get an element
-        let missionStatement = document.getElementsByClassName("missionStatement")[0];
-
-        if (missionStatement) 
-        {
-            // add contents in a div element
-            missionStatement.innerHTML =
-            `
-            <p>"To do my best with courage and passion"</p>
-            <p>Hi, my name is Heesoo Lim.</p>
-            <p>I'm taking Software Engineering Technology course. My goal is to be a Cyber Secutrity Expert</p>
-            `;
-        }
-    }
-        
-}
-
-/* add texts in Project page */
-function addTextsInProject() 
-{
-    if (title === "Project") 
-    {
-        // get an element
-        let articleTag = document.getElementsByClassName("article");
-        let projectHeadingDiv = document.getElementsByClassName("myProject")[0];
-
-        if (projectHeadingDiv) 
-        {
-            // create h1 element
-            let myProjectListHeading1 = document.createElement("h1");
-
-            // insert texts into h1 element
-            myProjectListHeading1.textContent = `My Project List`;
-
-            // add h1 element in div element
-            projectHeadingDiv.appendChild(myProjectListHeading1);
-        }
-
-        if(articleTag)
-        {
-            // get a header element from each article tag
-            let firstHeaderTag = articleTag[0].getElementsByClassName("header")[0];
-            
-            // create p element
-            let cooking = document.createElement("p");
-
-            // insert texts into p element
-            cooking.textContent = `Cooking`;
-
-            // add p element in header element
-            firstHeaderTag.appendChild(cooking);
-
-            // second header
-            let secondHeaderTag = articleTag[1].getElementsByClassName("header")[0];
-            let cSharp = document.createElement("p");
-            cSharp.textContent = `C#`;
-            secondHeaderTag.appendChild(cSharp);
-
-            // third header
-            let thirdHeaderTag = articleTag[2].getElementsByClassName("header")[0];
-            let drawing = document.createElement("p");
-            drawing.textContent = `Drawing`;
-            thirdHeaderTag.appendChild(drawing);
-
-
-            // create p element 
-            let firstExplanation = document.createElement("p");
-
-            // insert texts into p element
-            firstExplanation.textContent = "I love to cook! I'd learned cooking as a hobby for a while. I like to have what I cooked with my friends or family. I feel satisfied whenever I hear my food is delicious XD";
-            
-            // add p element in article element
-            articleTag[0].appendChild(firstExplanation);
-
-            //second explanation paragraph
-            let secondExplanation = document.createElement("p");
-            secondExplanation.textContent = "I'd studied C a few years ago. These days I'm learning TCP network programming in C#";
-            articleTag[1].appendChild(secondExplanation);
-
-            //third explanation paragraph
-            let thirdExplanation = document.createElement("p");
-            thirdExplanation.textContent = "I draw a picture whenever I have time. It helps me release stress a lot. This is the one I drew before I started this semester.";
-            articleTag[2].appendChild(thirdExplanation);
-        }
-    }
-}
-
 /* add texts in Contact page */
-function addTextsToContact() 
+function injectParagraphsContact() 
 {
-    if (title === "Contact") 
+    let XHR = new XMLHttpRequest();
+    XHR.open('GET', './Scripts/paragraphs.json');
+    XHR.send();
+
+    console.log(XHR.readyState);
+
+    XHR.addEventListener("readystatechange", function()
     {
-        // get an element
-        let formTag = document.getElementsByClassName("form");
-        let contactHeading1Div = document.getElementById("contactHeading");
-
-        if(contactHeading1Div)
+        if(XHR.readyState === 4 && XHR.status === 200)
         {
-            // create h1 element
-            let formHeading1 = document.createElement("h1");
+            let contactHeading = document.querySelector(".formContainer h1");
+            let labels = document.querySelectorAll(".formContainer label");
+            let buttons = document.querySelectorAll(".formContainer button");
+            
+            let data = JSON.parse(XHR.responseText);
+            let contentData = data.Contact;
+            contactHeading.innerText = contentData.topic;
 
-            // insert texts into h1 element
-            formHeading1.textContent = `Contact`;
-
-            // add h1 element in div element
-            contactHeading1Div.appendChild(formHeading1);
+            for (let index = 0; index < labels.length; index++) 
+            {
+                labels[index].innerText = contentData.labels[index];
+            }      
+            for (let index = 0; index < buttons.length; index++) 
+            {
+                buttons[index].innerText = contentData.buttons[index];
+            }         
         }
-
-        if(formTag)
-        {
-            // get elements
-            let formElement = document.querySelectorAll(".form-control");
-
-            // insert texts into each of elements' label tag
-            formElement[0].querySelector("label").innerHTML = "First Name";
-            formElement[1].querySelector("label").innerHTML = "Second Name";
-            formElement[2].querySelector("label").innerHTML = "Phone";
-            formElement[3].querySelector("label").innerHTML = "Email";
-            formElement[4].querySelector("label").innerHTML = "Message";
-
-            // get elements
-            let buttons = formElement[5].querySelectorAll("button");
-
-            // insert texts into each of elements' button tag
-            buttons[0].innerHTML = "Send";
-            buttons[1].innerHTML = "Undo";
-        }
-    }
-    }
+    })
+    
+}
 
 /* I have referenced the formation of the code from here https://www.youtube.com/watch?v=rsd4FNGTRBw and modified it when I write under code */
-
-// get elements within the form
-let form = document.getElementById('form');
-let firstName = document.getElementById('firstName');
-let secondName = document.getElementById('secondName');
-let phone = document.getElementById('phone');
-let email = document.getElementById('email');
-
-/* if current page is contact page and submit button is clicked */
-if(title === "Contact")
-{
-    form.addEventListener('submit', (event) =>
-    {
-        // prevent users from clicking submit button without typing anything
-        event.preventDefault();
-        check();
-    });
-}
 
 // form validation function
 function check() 
 {
+    let firstName = document.getElementById('firstName');
+    let lastName = document.getElementById('secondName');
+    let phone = document.getElementById('phone');
+    let email = document.getElementById('email');
     // get each form element's value without space
     let firstNameValue = firstName.value.trim();
-    let secondNameValue = secondName.value.trim();
+    let lastNameValue = lastName.value.trim();
     let phoneValue = phone.value.trim();
     let emailValue = email.value.trim();
+
+    let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let phonePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
     // count how many form elements input the user typed correctly
     let successNumber = 0;
 
     // check if the user input(first name) is correct or not
-    if(firstNameValue === '' || firstNameValue.length < 3)
+    if(firstNameValue === '')
     {
-        errorOccur(firstName, 'name should be more then 3 characters');
+        errorOccur(firstName, 'Please enter your first name');
     }
     else
     {
@@ -267,20 +201,20 @@ function check()
     }
 
     // check if the user input(second name) is correct or not
-    if(secondNameValue === '' || secondNameValue.length < 3)
+    if(lastNameValue === '')
     {
-        errorOccur(secondName, 'name should be more then 3 characters');
+        errorOccur(lastName, 'Please enter your last name');
     }
     else
     {
-        successOccur(secondName);
+        successOccur(lastName);
         successNumber += 1;
     }
 
     // check if the user input(phone number) is correct or not
-    if(phoneValue === '' || phoneValue.length < 9)
+    if(phoneValue === '' || !phonePattern.test(phoneValue))
     {
-        errorOccur(phone, 'phone should be more then 9 characters');
+        errorOccur(phone, 'Please enter the correct phone number');
     }
     else
     {
@@ -289,9 +223,9 @@ function check()
     }
 
     // check if the user input(email address) is correct or not
-    if(emailValue === '' || emailValue.length < 10)
+    if(emailValue === '' || !emailPattern.test(emailValue))
     {
-        errorOccur(email, 'email should be more then 10 characters');
+        errorOccur(email, 'Please enter the correct email address');
     }
     else
     {
@@ -302,7 +236,7 @@ function check()
     // if all inputs from user are correct, it will load index page
     if(successNumber === 4)
     {
-        window.location.href = "https://heesoolim.github.io/Assignment2/index.html";
+        window.location.href = "https://heesoolim.github.io/Assignment3/index.html";
     }
 
     /* when user input is not correct */

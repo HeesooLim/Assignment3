@@ -1,7 +1,7 @@
 
 /*
     Author: Heesoo Lim
-    Date: July 02, 2020
+    Date: July 21, 2020
     File Name: app.css
     File Description: This is a css file that is applied to index.html, contact.html and project.html
 */
@@ -192,11 +192,11 @@ article img:nth-of-type(even){
 }
 
 /* Project page's subtitle */
-header p {
+article h3 {
     font-family: arial;
     font-size: 30px;
     padding-top: 40px;
-    color: rgb(92, 93, 131);
+    color: rgb(255, 255, 255);
 }
 
 /* Project page's short horizontal line */
