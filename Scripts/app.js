@@ -2,30 +2,27 @@
 
 /*
     Author: Heesoo Lim
-    Date: July 21, 2020
+    Date: July 26, 2020
     File Name: app.js
     File Description: This is a JavaScript file that is applied to index.html, contact.html and project.html
 */
+
+let navAnchors = document.querySelectorAll("li a");
 
 /* starting function containing all functions */
 function Start()
 {
     let title = document.title;
-    let navAnchors = document.querySelectorAll("li a");
 
     switch (title) {
         case 'Home':
-            injectParagraphsOverlay();
-            injectParagraphsBIOP();
-            navAnchors[0].className = "nav-link active";
+            injectParagraphsBIO();
             break;
         case 'Project':
             injectParagraphsProject();
-            navAnchors[1].className = "nav-link active";
             break;
         case 'Contact':
             injectParagraphsContact();
-            navAnchors[2].className = "nav-link active";
             // get elements within the form
             let form = document.getElementById('form');
             form.addEventListener('submit', (event) =>
@@ -44,80 +41,111 @@ function Start()
 
 window.addEventListener("load", Start);
 
-function injectParagraphsOverlay()
+function injectParagraphsBIO()
 {
-    
+    navAnchors[0].className = "nav-link active";
+
     let XHR = new XMLHttpRequest();
     XHR.open('GET', './Scripts/paragraphs.json');
     XHR.send();
-
-    console.log(XHR.readyState);
-
-    XHR.addEventListener("readystatechange", function()
-    {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let overlay = document.querySelectorAll('.overlay h2');
-            let data = JSON.parse(XHR.responseText);
-            let contentData = data.BIO;
-            for (let index = 0; index < overlay.length; index++) 
-            {
-                overlay[index].innerText = contentData.hoverTexts[index];
-            }          
-        }
-    })
-}
-
-function injectParagraphsBIOP()
-{
-    
-    let XHR = new XMLHttpRequest();
-    XHR.open('GET', './Scripts/paragraphs.json');
-    XHR.send();
-
-    console.log(XHR.readyState);
 
     XHR.addEventListener("readystatechange", function()
     {
         if(XHR.readyState === 4 && XHR.status === 200)
         {
             let missionStatement = document.querySelectorAll('.missionStatement p');
+            let overlay = document.querySelectorAll('.overlay h2');
+
             let data = JSON.parse(XHR.responseText);
             let contentData = data.BIO;
-            for (let index = 0; index < missionStatement.length; index++) 
+
+            for (let index = 0; index < 2; index++) 
             {
-                missionStatement[index].innerText = contentData.Ps[index];
-            }          
+                overlay[index].innerText = contentData[index];
+            }        
+            for (let index = 0; index < 3; index++) 
+            {
+                missionStatement[index].innerText = contentData[index+2];
+            } 
+            
         }
     })
 }
 
 function injectParagraphsProject()
 {
+    navAnchors[1].className = "nav-link active";
     
     let XHR = new XMLHttpRequest();
     XHR.open('GET', './Scripts/paragraphs.json');
     XHR.send();
 
-    console.log(XHR.readyState);
+    XHR.addEventListener("readystatechange", function()
+    {
+        if(XHR.readyState === 4 && XHR.status === 200)
+        {
+            let projectHeading = document.querySelector("section h1");
+            let articleTopic = document.querySelectorAll("article h3");
+            let articleParagraphs = document.querySelectorAll("article p");
+            
+            let data = JSON.parse(XHR.responseText);
+            let contentData = data.Projects;
+            projectHeading.innerText = contentData[0];
+
+            for (let index = 0; index < 3; index++) 
+            {
+                articleTopic[index].innerText = contentData[index+1];
+                articleParagraphs[index].innerText = contentData[index+4];
+            }        
+        }
+    })
+}
+
+/* add texts in Contact page */
+function injectParagraphsContact() 
+{
+    navAnchors[2].className = "nav-link active";
+
+    let XHR = new XMLHttpRequest();
+    XHR.open('GET', './Scripts/paragraphs.json');
+    XHR.send();
 
     XHR.addEventListener("readystatechange", function()
     {
         if(XHR.readyState === 4 && XHR.status === 200)
         {
-            let articleTopic = document.querySelectorAll("article h3");
-            let projectHeading = document.querySelector("section h1");
-            let articleParagraphs = document.querySelectorAll("article p");
+            // heading of Contact page
+            let contactHeading = document.querySelector(".formContainer h1");
+            // all labels in Contact page
+            let labels = document.querySelectorAll(".formContainer label");
+            // send and undo buttons in contact page
+            let buttons = document.querySelectorAll(".formContainer button");
+
+            let errorDivs = document.querySelectorAll('small');
             
             let data = JSON.parse(XHR.responseText);
-            let contentData = data.Projects;
-            projectHeading.innerText = contentData.topic;
+            let contentData = data.Contact;
 
-            for (let index = 0; index < articleTopic.length; index++) 
+            // inject heading text
+            contactHeading.innerText = contentData[0];
+
+            // inject texts for labels from labels array in JSON file
+            for (let index = 0; index < 5; index++) 
             {
-                articleTopic[index].innerText = contentData.subtitles[index];
-                articleParagraphs[index].innerText = contentData.paragraphs[index];
-            }          
+                labels[index].innerText = contentData[index+1];
+            }      
+
+            // inject texts for buttons from buttons array in JSON file
+            for (let index = 0; index < 2; index++) 
+            {
+                buttons[index].innerText = contentData[index+6];
+            }
+
+            // inject texts for error messages from buttons array in JSON file
+            for (let index = 0; index < 4; index++) 
+            {
+                errorDivs[index].innerText = contentData[index+8]
+            }
         }
     })
 }
@@ -134,54 +162,16 @@ function addTextsToFooter()
     `;
 }
 
-/* add texts in Contact page */
-function injectParagraphsContact() 
-{
-    let XHR = new XMLHttpRequest();
-    XHR.open('GET', './Scripts/paragraphs.json');
-    XHR.send();
-
-    console.log(XHR.readyState);
-
-    XHR.addEventListener("readystatechange", function()
-    {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let contactHeading = document.querySelector(".formContainer h1");
-            let labels = document.querySelectorAll(".formContainer label");
-            let buttons = document.querySelectorAll(".formContainer button");
-            
-            let data = JSON.parse(XHR.responseText);
-            let contentData = data.Contact;
-            contactHeading.innerText = contentData.topic;
-
-            for (let index = 0; index < labels.length; index++) 
-            {
-                labels[index].innerText = contentData.labels[index];
-            }      
-            for (let index = 0; index < buttons.length; index++) 
-            {
-                buttons[index].innerText = contentData.buttons[index];
-            }         
-        }
-    })
-    
-}
-
-/* I have referenced the formation of the code from here https://www.youtube.com/watch?v=rsd4FNGTRBw and modified it when I write under code */
+/* I have referrd the formation of the code from here https://www.youtube.com/watch?v=rsd4FNGTRBw and modified it when I write below code */
 
 // form validation function
 function check() 
 {
+    // input elements
     let firstName = document.getElementById('firstName');
     let lastName = document.getElementById('secondName');
     let phone = document.getElementById('phone');
     let email = document.getElementById('email');
-    // get each form element's value without space
-    let firstNameValue = firstName.value.trim();
-    let lastNameValue = lastName.value.trim();
-    let phoneValue = phone.value.trim();
-    let emailValue = email.value.trim();
 
     let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let phonePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -190,9 +180,10 @@ function check()
     let successNumber = 0;
 
     // check if the user input(first name) is correct or not
-    if(firstNameValue === '')
+    if(firstName.value === '')
     {
-        errorOccur(firstName, 'Please enter your first name');
+        // errorOccur(firstName, injectErrorMessages('firstName'));
+        errorOccur(firstName);
     }
     else
     {
@@ -201,9 +192,10 @@ function check()
     }
 
     // check if the user input(second name) is correct or not
-    if(lastNameValue === '')
+    if(lastName.value === '')
     {
-        errorOccur(lastName, 'Please enter your last name');
+        // errorOccur(lastName, injectErrorMessages('secondName'));
+        errorOccur(lastName);
     }
     else
     {
@@ -212,9 +204,10 @@ function check()
     }
 
     // check if the user input(phone number) is correct or not
-    if(phoneValue === '' || !phonePattern.test(phoneValue))
+    if(phone.value === '' || !phonePattern.test(phone.value))
     {
-        errorOccur(phone, 'Please enter the correct phone number');
+        // errorOccur(phone, injectErrorMessages('phone'));
+        errorOccur(phone)
     }
     else
     {
@@ -223,9 +216,10 @@ function check()
     }
 
     // check if the user input(email address) is correct or not
-    if(emailValue === '' || !emailPattern.test(emailValue))
+    if(email.value === '' || !emailPattern.test(email.value))
     {
-        errorOccur(email, 'Please enter the correct email address');
+        // errorOccur(email, injectErrorMessages('email'));
+        errorOccur(email);
     }
     else
     {
@@ -239,16 +233,56 @@ function check()
         window.location.href = "https://heesoolim.github.io/Assignment3/index.html";
     }
 
-    /* when user input is not correct */
-    function errorOccur(input, message)
-    {
-        let formControl = input.parentElement;
+    // function injectErrorMessages(type)
+    // {
+    //     let XHR = new XMLHttpRequest();
+    //     XHR.open('GET', './Scripts/paragraphs.json');
+    //     XHR.send();
 
-        // assign error message
-        formControl.querySelector('small').innerText = message;
+    //     XHR.addEventListener("readystatechange", function()
+    //     {
+    //         if(XHR.readyState === 4 && XHR.status === 200)
+    //         {
+    //             let data = JSON.parse(XHR.responseText);
+    //             let contentData = data.Contact;
+    //             let message = "";
+
+    //             switch (type) {
+    //                 case "firstName":
+    //                     message = contentData.errorMessages[0];
+    //                     errorOccur(firstName, message);
+    //                     break;
+
+    //                 case "secondName":
+    //                     message = contentData.errorMessages[1];
+    //                     errorOccur(lastName, message);
+    //                     break;
+
+    //                 case "phone":
+    //                     message = contentData.errorMessages[2];
+    //                     errorOccur(phone, message);
+    //                     break;
+
+    //                 case "email":
+    //                     message = contentData.errorMessages[3];
+    //                     errorOccur(email, message);
+    //                     break;
+                
+    //                 default:
+    //                     break;
+    //             }      
+    //             return message;
+    //         }
+    //     })
+    // }
+
+    /* when user input is not correct */
+    function errorOccur(input)
+    {
+        // let formControl = input.parentElement;
 
         // change the class name
-        formControl.className = "form-control fail";
+        input.parentElement.className = "form-control fail";
     }
     
     /* when user input is correct */

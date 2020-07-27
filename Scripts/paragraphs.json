@@ -1,52 +1,37 @@
 {
     "BIO":
-    {
-        "hoverTexts":
-        [
-            "Welcome,",
-            "I am Heesoo"
-        ]
-        ,
-        "Ps":
-        [
-            "To do my best with courage and passion",
-            "Hi, my name is Heesoo Lim.",
-            "I'm taking Software Engineering Technology course. My goal is to be a Cyber Secutrity Expert"
-        ]
-    },
+    [
+        "Welcome,",
+        "I am Heesoo",
+        "To do my best with courage and passion",
+        "Hi, my name is Heesoo Lim.",
+        "I'm taking Software Engineering Technology course. My goal is to be a Cyber Secutrity Expert"
+    ],
 
     "Projects":
-    {
-        "topic": "My Projects",
-        "subtitles":
-        [
-            "Cooking",
-            "C#",
-            "Drawing"
-        ],
-        "paragraphs":
-        [
-            "I love to cook! I'd learned cooking as a hobby for a while. I like to have what I cooked with my friends or family. I feel satisfied whenever I hear my food is delicious XD",
-            "I'd studied C a few years ago. These days I'm learning TCP network programming in C#",
-            "I draw a picture whenever I have time. It helps me release stress a lot. This is the one I drew before I started this semester."
-        ]
-    },
+    [
+        "My Projects",
+        "Cooking",
+        "C#",
+        "Drawing",
+        "I love to cook! I'd learned cooking as a hobby for a while. I like to have what I cooked with my friends or family. I feel satisfied whenever I hear my food is delicious XD",
+        "I'd studied C a few years ago. These days I'm learning TCP network programming in C#",
+        "I draw a picture whenever I have time. It helps me release stress a lot. This is the one I drew before I started this semester."
+    ],
 
     "Contact":
-    {
-        "topic": "Contact",
-        "labels":
-        [
-            "First Name",
-            "Second Name",
-            "Phone",
-            "Email",
-            "Message"
-        ],
-        "buttons":
-        [
-            "Send",
-            "Undo"
-        ]
-    }
+    [
+        "Contact",
+        "First Name",
+        "Second Name",
+        "Phone",
+        "Email",
+        "Message",
+        "Send",
+        "Undo",
+        "Please enter your first name",
+        "Please enter your last name",
+        "Please enter the correct phone number",
+        "Please enter the correct email address"
+    ]
 }
