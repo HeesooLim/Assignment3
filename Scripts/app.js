@@ -30,7 +30,7 @@ function Start()
         default:
             break;
     }
-
+    
     footer();
 } 
 
@@ -213,7 +213,9 @@ function formValidate()
     // if all inputs from user are correct, it will load index page
     if(successNumber === 4)
     {
-        window.location.href = "https://heesoolim.github.io/Assignment3/index.html";
+        let currentLocation = window.location.href ;
+        let rootLocation = currentLocation.substr(0, currentLocation.lastIndexOf('/')+1);
+        window.location.href = rootLocation + "index.html";
     }
 
     /* when user input is not correct */
