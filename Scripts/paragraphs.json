@@ -1,37 +1,58 @@
 {
-    "BIO":
+    "bioHoverTexts":
     [
-        "Welcome,",
-        "I am Heesoo",
-        "To do my best with courage and passion",
-        "Hi, my name is Heesoo Lim.",
-        "I'm taking Software Engineering Technology course. My goal is to be a Cyber Secutrity Expert"
+        { "heading": "Welcome," },
+        { "heading": "I am Heesoo" }
     ],
 
-    "Projects":
+    "bioParagraphs":
     [
-        "My Projects",
-        "Cooking",
-        "C#",
-        "Drawing",
-        "I love to cook! I'd learned cooking as a hobby for a while. I like to have what I cooked with my friends or family. I feel satisfied whenever I hear my food is delicious XD",
-        "I'd studied C a few years ago. These days I'm learning TCP network programming in C#",
-        "I draw a picture whenever I have time. It helps me release stress a lot. This is the one I drew before I started this semester."
+        { "paragraph": "To do my best with courage and passion" },
+        { "paragraph": "Hi, my name is Heesoo Lim." },
+        { "paragraph": "I'm taking Software Engineering Technology course. My goal is to be a Cyber Secutrity Expert" }
     ],
 
-    "Contact":
+    "projectTopic": "My Projects",
+
+    "projectTexts":
     [
-        "Contact",
-        "First Name",
-        "Second Name",
-        "Phone",
-        "Email",
-        "Message",
-        "Send",
-        "Undo",
-        "Please enter your first name",
-        "Please enter your last name",
-        "Please enter the correct phone number",
-        "Please enter the correct email address"
+        { 
+            "heading": "Cooking",
+            "paragraph": "I love to cook! I'd learned cooking as a hobby for a while. I like to have what I cooked with my friends or family. I feel satisfied whenever I hear my food is delicious XD"
+        },
+        { 
+            "heading": "C#",
+            "paragraph": "I'd studied C a few years ago. These days I'm learning TCP network programming in C#"
+        },
+        { 
+            "heading": "Drawing" ,
+            "paragraph": "I draw a picture whenever I have time. It helps me release stress a lot. This is the one I drew before I started this semester."
+        }
+
+    ],
+
+    "contactTopic":"Contact",
+
+    "contactLabels":
+    [
+        { "label": "First Name" },
+        { "label": "Last Name" },
+        { "label": "Phone" },
+        { "label": "Email" },
+        { "label": "Message" }
+    ],
+
+    "contactButtons":
+    [
+        { "button": "Send" },
+        { "button": "Undo" }
+    ],
+
+    "contactErrorMessages":
+    [
+        { "errorMessage": "Please enter your first name" },
+        { "errorMessage": "Please enter your last name" },
+        { "errorMessage": "Please enter the correct phone number" },
+        { "errorMessage": "Please enter the correct email address" }
     ]
 }

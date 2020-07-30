@@ -1,5 +1,6 @@
 "use strict";
 
+// import { Pages } from "./pages.js";
 /*
     Author: Heesoo Lim
     Date: July 28, 2020
@@ -16,15 +17,15 @@ function Start()
     switch (title) {
         case 'Home':
             headerNav(title);
-            UsingXHR(filepath, bioContents);
+            usingXHR(filepath, bioContents);
             break;
         case 'Project':
             headerNav(title);
-            UsingXHR(filepath, projectContents);
+            usingXHR(filepath, projectContents);
             break;
         case 'Contact':
             headerNav(title);
-            UsingXHR(filepath, contactcontents);
+            usingXHR(filepath, contactContents);
             break;
         default:
             break;
@@ -63,69 +64,89 @@ function headerNav(title)
 
 function bioContents(data)
 {
-    let missionStatement = document.querySelectorAll('.missionStatement p');
-    let overlay = document.querySelectorAll('.overlay h2');
+    let missionStatement = document.querySelector('.missionStatement');
+    let overlay = document.querySelector('.overlay .hoverTexts');
 
-    console.log(data);
-    let contentData = data.BIO;
-
-    for (let index = 0; index < 2; index++) 
+    let bioHoverTexts = data.bioHoverTexts;
+    let bioParagraphs = data.bioParagraphs;
+    for (const text of bioHoverTexts) 
     {
-        overlay[index].innerText = contentData[index];
+        let h2 = document.createElement('h2');
+        h2.innerText = text.heading;
+        overlay.appendChild(h2);
     }
-    
-    for (let index = 0; index < 3; index++) 
+
+    for (const text of bioParagraphs) 
     {
-        missionStatement[index].innerText = contentData[index+2];
-    } 
+        let p = document.createElement('p');
+        p.innerText = text.paragraph;
+        missionStatement.appendChild(p);
+    }
 }
 
 function projectContents(data)
 {
-    let projectHeading = document.querySelector("section h1");
+    let articleHeader = document.querySelectorAll("article header");
+    let articleParagraphs = document.querySelectorAll("article .content");
 
-    let articleTopic = document.querySelectorAll("article h3");
+    // let articleParagraphs = document.querySelectorAll("article p");
 
-    let articleParagraphs = document.querySelectorAll("article p");
-    let contentData = data.Projects;
+    let projectTitle = document.querySelector("section h1");
 
-    projectHeading.innerText = contentData[0];
+    projectTitle.innerText = data.projectTopic;
 
-    for (let index = 0; index < 3; index++) 
+    let projectTexts = data.projectTexts;
+
+    let index = 0;
+    for (const text of projectTexts) 
     {
-        articleTopic[index].innerText = contentData[index+1];
+        let h3 = document.createElement('h3');
+        h3.innerText = text.heading;
+        articleHeader[index].appendChild(h3);
 
-        articleParagraphs[index].innerText = contentData[index+4];
-    }   
+        let p = document.createElement('p');
+        p.innerText = text.paragraph;
+        articleParagraphs[index].appendChild(p);
+
+        index++;
+    }
 }
 
-function contactcontents(data) 
+function contactContents(data) 
 {
     let contactHeading = document.querySelector(".formContainer h1");
 
-    let labels = document.querySelectorAll(".formContainer label");
+    contactHeading.innerText = data.contactTopic;
 
-    let buttons = document.querySelectorAll(".formContainer button");
+    let labelTags = document.querySelectorAll(".formContainer label");
 
-    let errorDivs = document.querySelectorAll('small');
+    let buttonTags = document.querySelectorAll(".formContainer button");
 
-    let contentData = data.Contact;
+    let smallTags = document.querySelectorAll('.form-control small');
 
-    contactHeading.innerText = contentData[0];
+    let labels = data.contactLabels;
+    let buttons = data.contactButtons;
+    let errorMessages = data.contactErrorMessages;
 
-    for (let index = 0; index < 5; index++) 
-    {
-        labels[index].innerText = contentData[index+1];
-    }      
+    let index = 0;
 
-    for (let index = 0; index < 2; index++) 
-    {
-        buttons[index].innerText = contentData[index+6];
+    for (const text of labels) {
+        labelTags[index].innerText = text.label;
+        index++;
     }
 
-    for (let index = 0; index < 4; index++) 
-    {
-        errorDivs[index].innerText = contentData[index+8]
+    index = 0;
+
+    for (const text of buttons) {
+        buttonTags[index].innerText = text.button;
+        index++;
+    }
+    
+    index = 0;
+
+    for (const text of errorMessages) {
+        smallTags[index].innerText = text.errorMessage;
+        index++;
     }
 
     document.getElementById('form').addEventListener('submit', (event) =>
