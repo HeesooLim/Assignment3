@@ -11,19 +11,20 @@
 function Start()
 {
     let title = document.title;
+    let filepath = './Scripts/paragraphs.json'
     
     switch (title) {
         case 'Home':
             headerNav(title);
-            bioContents();
+            UsingXHR(filepath, bioContents);
             break;
         case 'Project':
             headerNav(title);
-            projectContents();
+            UsingXHR(filepath, projectContents);
             break;
         case 'Contact':
             headerNav(title);
-            contactcontents();
+            UsingXHR(filepath, contactcontents);
             break;
         default:
             break;
@@ -60,122 +61,72 @@ function headerNav(title)
     })
 }
 
-function bioContents()
+function bioContents(data)
 {
-    // Instantiate XMLHttpRequest object
-    let XHR = new XMLHttpRequest();
+    let missionStatement = document.querySelectorAll('.missionStatement p');
+    let overlay = document.querySelectorAll('.overlay h2');
 
-    // Open the request
-    XHR.open('GET', './Scripts/paragraphs.json');
+    console.log(data);
+    let contentData = data.BIO;
 
-    // Send a request to the server
-    XHR.send();
-
-    XHR.addEventListener("readystatechange", function()
+    for (let index = 0; index < 2; index++) 
     {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let missionStatement = document.querySelectorAll('.missionStatement p');
-            let overlay = document.querySelectorAll('.overlay h2');
-
-            let data = JSON.parse(XHR.responseText);
-            let contentData = data.BIO;
-
-            for (let index = 0; index < 2; index++) 
-            {
-                overlay[index].innerText = contentData[index];
-            }
-            
-            for (let index = 0; index < 3; index++) 
-            {
-                missionStatement[index].innerText = contentData[index+2];
-            } 
-            
-        }
-    })
+        overlay[index].innerText = contentData[index];
+    }
+    
+    for (let index = 0; index < 3; index++) 
+    {
+        missionStatement[index].innerText = contentData[index+2];
+    } 
 }
 
-function projectContents()
+function projectContents(data)
 {
-    // Instantiate XMLHttpRequest object
-    let XHR = new XMLHttpRequest();
+    let projectHeading = document.querySelector("section h1");
 
-    // Get information and open the request
-    XHR.open('GET', './Scripts/paragraphs.json');
+    let articleTopic = document.querySelectorAll("article h3");
 
-    // Send a request to the server
-    XHR.send();
+    let articleParagraphs = document.querySelectorAll("article p");
+    let contentData = data.Projects;
 
-    XHR.addEventListener("readystatechange", function()
+    projectHeading.innerText = contentData[0];
+
+    for (let index = 0; index < 3; index++) 
     {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let projectHeading = document.querySelector("section h1");
+        articleTopic[index].innerText = contentData[index+1];
 
-            let articleTopic = document.querySelectorAll("article h3");
-
-            let articleParagraphs = document.querySelectorAll("article p");
-            
-            let data = JSON.parse(XHR.responseText);
-            let contentData = data.Projects;
-
-            projectHeading.innerText = contentData[0];
-
-            for (let index = 0; index < 3; index++) 
-            {
-                articleTopic[index].innerText = contentData[index+1];
-
-                articleParagraphs[index].innerText = contentData[index+4];
-            }        
-        }
-    })
+        articleParagraphs[index].innerText = contentData[index+4];
+    }   
 }
 
-function contactcontents() 
+function contactcontents(data) 
 {
-    // Instantiate XMLHttpRequest object
-    let XHR = new XMLHttpRequest();
+    let contactHeading = document.querySelector(".formContainer h1");
 
-    // Open the request
-    XHR.open('GET', './Scripts/paragraphs.json');
+    let labels = document.querySelectorAll(".formContainer label");
 
-    // Send a request to the server
-    XHR.send();
+    let buttons = document.querySelectorAll(".formContainer button");
 
-    XHR.addEventListener("readystatechange", function()
+    let errorDivs = document.querySelectorAll('small');
+
+    let contentData = data.Contact;
+
+    contactHeading.innerText = contentData[0];
+
+    for (let index = 0; index < 5; index++) 
     {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let contactHeading = document.querySelector(".formContainer h1");
+        labels[index].innerText = contentData[index+1];
+    }      
 
-            let labels = document.querySelectorAll(".formContainer label");
+    for (let index = 0; index < 2; index++) 
+    {
+        buttons[index].innerText = contentData[index+6];
+    }
 
-            let buttons = document.querySelectorAll(".formContainer button");
-
-            let errorDivs = document.querySelectorAll('small');
-            
-            let data = JSON.parse(XHR.responseText);
-
-            let contentData = data.Contact;
-
-            contactHeading.innerText = contentData[0];
-
-            for (let index = 0; index < 5; index++) 
-            {
-                labels[index].innerText = contentData[index+1];
-            }      
-
-            for (let index = 0; index < 2; index++) 
-            {
-                buttons[index].innerText = contentData[index+6];
-            }
-
-            for (let index = 0; index < 4; index++) 
-            {
-                errorDivs[index].innerText = contentData[index+8]
-            }
-        }
-    })
+    for (let index = 0; index < 4; index++) 
+    {
+        errorDivs[index].innerText = contentData[index+8]
+    }
 
     document.getElementById('form').addEventListener('submit', (event) =>
     {
@@ -278,5 +229,33 @@ function footer()
             footer.innerHTML = XHR.responseText;
         }
     })
+}
+
+function usingXHR(file, callback)
+{
+    // Instantiate XMLHttpRequest object
+    let XHR = new XMLHttpRequest();
+
+    // Get information and open the request
+    XHR.open('GET', file);
+
+    // Send a request to the server
+    XHR.send();
+    
+
+    XHR.addEventListener("readystatechange", function()
+    {
+        if(XHR.readyState === 4 && XHR.status === 200)
+        {
+            let data = JSON.parse(XHR.responseText);
+
+            if(typeof callback === 'function')
+            {
+                callback(data);
+            }
+        }
+    })
+    
+
 }
 /* I have referrd form validation function https://www.youtube.com/watch?v=rsd4FNGTRBw */
