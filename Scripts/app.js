@@ -1,9 +1,8 @@
 "use strict";
 
-// import { Pages } from "./pages.js";
 /*
     Author: Heesoo Lim
-    Date: July 28, 2020
+    Date: August 03, 2020
     File Name: app.js
     File Description: This is a JavaScript file that is applied to index.html, contact.html and project.html
 */
@@ -35,6 +34,33 @@ function Start()
 } 
 
 window.addEventListener("load", Start);
+
+function usingXHR(file, callback)
+{
+    // Instantiate XMLHttpRequest object
+    let XHR = new XMLHttpRequest();
+
+    // Get information and open the request
+    XHR.open('GET', file);
+
+    // Send a request to the server
+    XHR.send();
+
+    XHR.addEventListener("readystatechange", function()
+    {
+        if(XHR.readyState === 4 && XHR.status === 200)
+        {
+            let data = JSON.parse(XHR.responseText);
+
+            if(typeof callback === 'function')
+            {
+                callback(data);
+            }
+        }
+    })
+    
+
+}
 
 function headerNav(title)
 {
@@ -69,6 +95,7 @@ function bioContents(data)
 
     let bioHoverTexts = data.bioHoverTexts;
     let bioParagraphs = data.bioParagraphs;
+
     for (const text of bioHoverTexts) 
     {
         let h2 = document.createElement('h2');
@@ -98,6 +125,7 @@ function projectContents(data)
     let projectTexts = data.projectTexts;
 
     let index = 0;
+
     for (const text of projectTexts) 
     {
         let h3 = document.createElement('h3');
@@ -254,31 +282,5 @@ function footer()
     })
 }
 
-function usingXHR(file, callback)
-{
-    // Instantiate XMLHttpRequest object
-    let XHR = new XMLHttpRequest();
 
-    // Get information and open the request
-    XHR.open('GET', file);
-
-    // Send a request to the server
-    XHR.send();
-    
-
-    XHR.addEventListener("readystatechange", function()
-    {
-        if(XHR.readyState === 4 && XHR.status === 200)
-        {
-            let data = JSON.parse(XHR.responseText);
-
-            if(typeof callback === 'function')
-            {
-                callback(data);
-            }
-        }
-    })
-    
-
-}
 /* I have referrd form validation function https://www.youtube.com/watch?v=rsd4FNGTRBw */
