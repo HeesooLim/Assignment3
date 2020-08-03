@@ -7,24 +7,22 @@
     File Description: This is a JavaScript file that is applied to index.html, contact.html and project.html
 */
 
-/* starting function containing all functions */
 function Start()
 {
     let title = document.title;
-    let filepath = './Scripts/paragraphs.json'
     
     switch (title) {
         case 'Home':
             headerNav(title);
-            usingXHR(filepath, bioContents);
+            usingXHR(bioContents);
             break;
         case 'Project':
             headerNav(title);
-            usingXHR(filepath, projectContents);
+            usingXHR(projectContents);
             break;
         case 'Contact':
             headerNav(title);
-            usingXHR(filepath, contactContents);
+            usingXHR(contactContents);
             break;
         default:
             break;
@@ -35,13 +33,13 @@ function Start()
 
 window.addEventListener("load", Start);
 
-function usingXHR(file, callback)
+function usingXHR(callback)
 {
     // Instantiate XMLHttpRequest object
     let XHR = new XMLHttpRequest();
 
     // Get information and open the request
-    XHR.open('GET', file);
+    XHR.open('GET', './Scripts/paragraphs.json');
 
     // Send a request to the server
     XHR.send();
