@@ -112,9 +112,8 @@ function bioContents(data)
 function projectContents(data)
 {
     let articleHeader = document.querySelectorAll("article header");
+    
     let articleParagraphs = document.querySelectorAll("article .content");
-
-    // let articleParagraphs = document.querySelectorAll("article p");
 
     let projectTitle = document.querySelector("section h1");
 
